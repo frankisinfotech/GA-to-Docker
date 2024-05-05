@@ -1,0 +1,24 @@
+name: Build DockerHub
+
+on: push
+
+jobs:
+
+  build-to-DHub:
+    runs-on: ubuntu-latest
+    steps:
+
+      - name: Code Checkout
+        uses: actions/checkout@v4
+
+      - name: Docker Login
+        uses: docker/login-action@v3
+        with:
+          username: ${{ secrets.DOCKERHUB_USERNAME }}
+          password: ${{ secrets.DOCKERHUB_PASSWORD }}
+
+      - name: Build Image
+        run: |
+          docker build -t reactappimg:v1 .
+          docker tag reactappimg:v1 frankisinfotech/cohort-app:v1
+          docker push frankisinfotech/cohort-app:v1
