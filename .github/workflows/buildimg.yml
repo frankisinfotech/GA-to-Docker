@@ -72,7 +72,7 @@ jobs:
        
 
   build-and-push-private-ecr:
-    needs: build-to-AWSECR
+    needs: build-and-push-pub-ecr
     runs-on: ubuntu-latest
     steps:
 
