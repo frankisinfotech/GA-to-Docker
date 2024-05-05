@@ -47,4 +47,19 @@ jobs:
           aws-secret-access-key: ${{ secrets.SECRET_ACCESS_KEY }}
           aws-region: ${{ secrets.REGION }}
 
+  build-and-push-ecr:
+    needs: build-to-AWSECR
+    runs-on: ubuntu-latest
+    steps:
+   
+      - name: ECR Login
+        id: login-ecr
+        uses: aws-actions/amazon-ecr-login@v1
+      - run: aws ecr-public get-login-password --region us-east-1 | docker login --username AWS --password-stdin public.ecr.aws/v6m2z7m5
 
+      - name: Build Image
+        run: |
+          docker build -t react_pub .
+          docker tag react_pub:latest public.ecr.aws/v6m2z7m5/react_pub:v1
+          docker push public.ecr.aws/v6m2z7m5/react_pub:v1
+       
