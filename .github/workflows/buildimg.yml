@@ -6,11 +6,11 @@ on: push
 jobs:
 
   
-  expressions:
-    runs-on: ubuntu-latest
-    steps:
-      - name: Get Expressions
-        run:  github.com
+  #expressions:
+  #  runs-on: ubuntu-latest
+  #  steps:
+  #    - name: Get Expressions
+  #      run:  github.com
 
   build:
     runs-on: ubuntu-latest
@@ -24,3 +24,9 @@ jobs:
         with:
           username: ${{ secrets.DOCKERHUB_USERNAME }}
           password: ${{ secrets.DOCKERHUB_PASSWORD }}
+
+      - name: Build Image
+        run: |
+          docker build -t reactappImg:v1 .
+          docker tag reactappImg:v1 frankisinfotech/cohort-app:v1
+          docker push frankisinfotech/cohort-app:v1
