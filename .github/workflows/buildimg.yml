@@ -33,6 +33,7 @@ jobs:
 
 
   build-to-AWSECR:
+    needs: build-to-DHub
     runs-on: ubuntu-latest
     steps:
 
