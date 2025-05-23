@@ -25,6 +25,6 @@ jobs:
 
       - name: Build Image
         run: |
-          docker build -t reactappimg:v1 .
-          docker tag reactappimg:v1 frankisinfotech/cohort-app:v1
-          docker push frankisinfotech/cohort-app:v1
+          docker build -t reactappimg:${GITHUB_RUN_NUMBER} .
+          docker tag reactappimg:${GITHUB_RUN_NUMBER} frankisinfotech/cohort-app:${GITHUB_RUN_NUMBER}
+          docker push frankisinfotech/cohort-app:${GITHUB_RUN_NUMBER}
